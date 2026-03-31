@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ import com.practice.journalApp.entity.JournalEntry;
 @RequestMapping("/_journal")
 public class JournalEntryComponent {
 	
-	private Map<Long, JournalEntry> journalEntries = new HashMap();
+	private Map<ObjectId, JournalEntry> journalEntries = new HashMap();
 	
 	@GetMapping
 	public List<JournalEntry> getAll() {
@@ -40,17 +41,17 @@ public class JournalEntryComponent {
 	}
 	
 	@GetMapping("/id/{myid}")
-	public JournalEntry getEntryById(@PathVariable Long myid) {
+	public JournalEntry getEntryById(@PathVariable ObjectId myid) {
 		return journalEntries.get(myid);
 	}
 	
 	@DeleteMapping("/id/{myid}")
-	public JournalEntry deleteEntryById(@PathVariable Long myid) {
+	public JournalEntry deleteEntryById(@PathVariable ObjectId myid) {
 		return journalEntries.remove(myid);
 	}
 	
 	@PutMapping("id/{myid}")
-	public JournalEntry updateEntryById(@PathVariable Long myid, @RequestBody JournalEntry myEntry) {
+	public JournalEntry updateEntryById(@PathVariable ObjectId myid, @RequestBody JournalEntry myEntry) {
 		return journalEntries.put(myEntry.getId(), myEntry);
 	}
 }
